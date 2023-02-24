@@ -1,13 +1,10 @@
-CC=gcc
-BUILD_FLAGS=-c
+CC = gcc
+WARN = -Wall
+LDFLAGS = -c
+OBJS = zipio.o crc.o inflate.o getopt.o
 
-test: btf.o
-	$(CC) test.c btf.o -o test
+btf: $(OBJS)
+	$(CC) -o btf btf.c $(OBJS)
 
-btf.o: btf.c
-	$(CC) $(BUILD_FLAGS) btf.c
-
-clean:
-	rm -rf *.o
-	rm -rf test
-
+zipio.o:
+	$(CC) $(LDFLAGS) zipio.c -o zipio.o
