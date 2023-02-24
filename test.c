@@ -9,7 +9,6 @@ void test_ac_info();
 int main(){
 	test_battery_info();
 	test_ac_info();
-	printf("infoger is now online!\n");
 	return 0;
 }
 
