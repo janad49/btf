@@ -14,7 +14,7 @@ void btf_print_help(){
 	printf("%s\n", BTF_HELP);
 }
 
-int main(){
+int main(int argc, char* argv[]){
 
 }
 

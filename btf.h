@@ -61,10 +61,28 @@
 #ifndef BTF_ARGS
 #define BTF_ARGS
 #define BTF_ARGS_SHORT_INFO "-i"
+
+// information argumts for short 
+#define BTF_ARGS_SHORT_INFO_CAP "c"
+#define BTF_ARGS_SHORT_INFO_CAP_LVL "l"
+#define BTF_ARGS_SHORT_INFO_MAN "m"
+#define BTF_ARGS_SHORT_INFO_SER "s"
+#define BTF_ARGS_SHORT_INFO_TEC "t"
+#define BTF_ARGS_SHORT_INFO_TYPE "p"
+
 #define BTF_ARGS_SHORT_VERSION "-v"
 #define BTF_ARGS_SHORT_HELP "-h"
 
+// information arguments for long argument
 #define BTF_ARGS_LONG_INFO "--info"
+#define BTF_ARGS_LONG_INFO_CAP "capacity"
+#define BTF_ARGS_LONG_INFO_CAP_LVL "level"
+#define BTF_ARGS_LONG_INFO_MAN "manufacturer"
+#define BTF_ARGS_LONG_INFO_SER "serial"
+#define BTF_ARGS_LONG_INFO_TEC "technology"
+#define BTF_ARGS_LONG_INFO_TYPE "type"
+
+
 #define BTF_ARGS_LONG_VERSION "--version"
 #define BTF_ARGS_LONG_HELP "--help"
 #endif
