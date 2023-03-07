@@ -36,7 +36,7 @@ SOFTWARE.
  */
 boolean btf_ac_info_state(){
 	FILE* btf_ac_info_state_file;
-	btf_ac_info_state_file = fopen(BTF_AC_STATE, BTF_SYS_READ);
+	btf_ac_info_state_file = btf_file_open(BTF_AC_STATE, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_ac_info_state_file);
 	btf_str state = btf_sys_file_read_buffer(btf_ac_info_state_file, buffer_size);
 	if(strcmp(state, BTF_AC_ON))return true;
@@ -47,7 +47,7 @@ boolean btf_ac_info_state(){
 /* reads the ac information */
 btf_str btf_ac_info_type(){
 	FILE* btf_ac_info_type_file;
-	btf_ac_info_type_file = fopen(BTF_AC_TYPE, BTF_SYS_READ);
+	btf_ac_info_type_file = btf_file_open(BTF_AC_TYPE, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_ac_info_type_file);
 	return btf_sys_file_read_buffer(btf_ac_info_type_file, buffer_size);
 }
@@ -67,7 +67,7 @@ boolean btf_battery_availabe(){
 /* reads the battery capacity */
 btf_str btf_battery_info_capacity(){
 	FILE* btf_battery_info_capacity_file;
-	btf_battery_info_capacity_file = fopen(BTF_BATTERY_CAPACITY, BTF_SYS_READ);
+	btf_battery_info_capacity_file = btf_file_open(BTF_BATTERY_CAPACITY, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_capacity_file);
 	return btf_sys_file_read_buffer(btf_battery_info_capacity_file, buffer_size);
 }
@@ -75,7 +75,7 @@ btf_str btf_battery_info_capacity(){
 /* reads the battery capacity level */
 btf_str btf_battery_info_capacity_level(){
 	FILE* btf_battery_info_capacity_level_file;
-	btf_battery_info_capacity_level_file = fopen(BTF_BATTERY_CAPACITY_LEVEL, BTF_SYS_READ);
+	btf_battery_info_capacity_level_file = btf_file_open(BTF_BATTERY_CAPACITY_LEVEL, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_capacity_level_file);
 	return btf_sys_file_read_buffer(btf_battery_info_capacity_level_file, buffer_size);
 }
@@ -83,7 +83,7 @@ btf_str btf_battery_info_capacity_level(){
 /* reads the battery manufacturer */
 btf_str btf_battery_info_manufacturer(){
 	FILE* btf_battery_info_manufacturer_file;
-	btf_battery_info_manufacturer_file = fopen(BTF_BATTERY_MANUFACTURER, BTF_SYS_READ);
+	btf_battery_info_manufacturer_file = btf_file_open(BTF_BATTERY_MANUFACTURER, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_manufacturer_file);
 	return btf_sys_file_read_buffer(btf_battery_info_manufacturer_file, buffer_size);
 }
@@ -91,7 +91,7 @@ btf_str btf_battery_info_manufacturer(){
 /* reads the serial number of the battery */
 btf_str btf_battery_info_serial(){
 	FILE* btf_battery_info_serial_file;
-	btf_battery_info_serial_file = fopen(BTF_BATTERY_SERIAL, BTF_SYS_READ);
+	btf_battery_info_serial_file = btf_file_open(BTF_BATTERY_SERIAL, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_serial_file);
 	return btf_sys_file_read_buffer(btf_battery_info_serial_file, buffer_size);
 }
@@ -99,14 +99,14 @@ btf_str btf_battery_info_serial(){
 /* reads what technology is the battery is using */
 btf_str btf_battery_info_technology(){
 	FILE* btf_battery_info_technology_file;
-	btf_battery_info_technology_file = fopen(BTF_BATTERY_TECHNOLOGY, BTF_SYS_READ);
+	btf_battery_info_technology_file = btf_file_open(BTF_BATTERY_TECHNOLOGY, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_technology_file);
 	return btf_sys_file_read_buffer(btf_battery_info_technology_file, buffer_size);
 }
 
 btf_str btf_battery_info_type(){
 	FILE* btf_battery_info_type_file;
-	btf_battery_info_type_file = fopen(BTF_BATTERY_TYPE, BTF_SYS_READ);
+	btf_battery_info_type_file = btf_file_open(BTF_BATTERY_TYPE, BTF_SYS_READ);
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_type_file);
 	return btf_sys_file_read_buffer(btf_battery_info_type_file, buffer_size);
 }

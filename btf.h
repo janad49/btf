@@ -34,6 +34,7 @@
 	"--help | -h : shows this help message" 
 
 #define BTF_SYS_READ "r"
+#define btf_file_open fopen
 /*
  * System battery informations are stored here
  */
