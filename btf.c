@@ -72,6 +72,7 @@ btf_str btf_battery_info_capacity(){
 	FILE* btf_battery_info_capacity_file;
 	btf_battery_info_capacity_file = btf_file_open(BTF_BATTERY_CAPACITY, BTF_SYS_READ);
 	if(!btf_battery_info_capacity_file)return NULL;
+	
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_capacity_file);
 	return btf_sys_file_read_buffer(btf_battery_info_capacity_file, buffer_size);
 }
@@ -100,6 +101,8 @@ btf_str btf_battery_info_manufacturer(){
 btf_str btf_battery_info_serial(){
 	FILE* btf_battery_info_serial_file;
 	btf_battery_info_serial_file = btf_file_open(BTF_BATTERY_SERIAL, BTF_SYS_READ);
+	if(!btf_battery_info_serial_file)return NULL;
+	
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_serial_file);
 	return btf_sys_file_read_buffer(btf_battery_info_serial_file, buffer_size);
 }
