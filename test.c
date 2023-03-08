@@ -34,7 +34,7 @@ void test_battery_info(void){
 	printf("battery_capacity_level: %s", sys_battery_info->btf_capacity_level);
 	printf("battery_manufacturer: %s", sys_battery_info->btf_manufacturer);
 	printf("battery_technology: %s", sys_battery_info->btf_technology);
-	printf("finished battery check...\n");
+	printf("finished battery check...");
 	free(sys_battery_info);
 }
 
@@ -48,4 +48,11 @@ void test_ac_info(void){
 	}
 
 	btf_ac_info->state == true ? printf("AC is available!\n") : printf("ac is not available!\n");
+	if(!btf_ac_info->type){
+		printf("ac type not available!\n");
+		return;
+	}
+
+	printf("ac type: %s\n", btf_ac_info->type);
+
 }

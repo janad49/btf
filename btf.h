@@ -34,7 +34,10 @@
 	"--help | -h : shows this help message" 
 
 #define BTF_SYS_READ "r"
+
 #define btf_file_open fopen
+
+#define btf_str_malloc (btf_str)malloc
 /*
  * System battery informations are stored here
  */
@@ -89,6 +92,8 @@
 #endif
 
 #endif
+
+#define BTF_INFO_UNAVAILABLE "UNAVAILABLE"
 
 // BtfBattery structure to hold
 // different properties of the battery

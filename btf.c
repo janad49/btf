@@ -37,10 +37,11 @@ SOFTWARE.
 boolean btf_ac_info_state(){
 	FILE* btf_ac_info_state_file;
 	btf_ac_info_state_file = btf_file_open(BTF_AC_STATE, BTF_SYS_READ);
+	if(!btf_ac_info_state_file)return false;
+
 	size_t buffer_size = btf_sys_file_length(btf_ac_info_state_file);
 	btf_str state = btf_sys_file_read_buffer(btf_ac_info_state_file, buffer_size);
 	if(strcmp(state, BTF_AC_ON))return true;
-
 	return false;
 }
 
@@ -48,6 +49,8 @@ boolean btf_ac_info_state(){
 btf_str btf_ac_info_type(){
 	FILE* btf_ac_info_type_file;
 	btf_ac_info_type_file = btf_file_open(BTF_AC_TYPE, BTF_SYS_READ);
+	if(!btf_ac_info_type_file)return NULL;
+
 	size_t buffer_size = btf_sys_file_length(btf_ac_info_type_file);
 	return btf_sys_file_read_buffer(btf_ac_info_type_file, buffer_size);
 }
@@ -68,6 +71,7 @@ boolean btf_battery_availabe(){
 btf_str btf_battery_info_capacity(){
 	FILE* btf_battery_info_capacity_file;
 	btf_battery_info_capacity_file = btf_file_open(BTF_BATTERY_CAPACITY, BTF_SYS_READ);
+	if(!btf_battery_info_capacity_file)return NULL;
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_capacity_file);
 	return btf_sys_file_read_buffer(btf_battery_info_capacity_file, buffer_size);
 }
@@ -76,6 +80,8 @@ btf_str btf_battery_info_capacity(){
 btf_str btf_battery_info_capacity_level(){
 	FILE* btf_battery_info_capacity_level_file;
 	btf_battery_info_capacity_level_file = btf_file_open(BTF_BATTERY_CAPACITY_LEVEL, BTF_SYS_READ);
+	if(!btf_battery_info_capacity_level_file)return NULL;
+
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_capacity_level_file);
 	return btf_sys_file_read_buffer(btf_battery_info_capacity_level_file, buffer_size);
 }
@@ -84,6 +90,8 @@ btf_str btf_battery_info_capacity_level(){
 btf_str btf_battery_info_manufacturer(){
 	FILE* btf_battery_info_manufacturer_file;
 	btf_battery_info_manufacturer_file = btf_file_open(BTF_BATTERY_MANUFACTURER, BTF_SYS_READ);
+	if(!btf_battery_info_manufacturer_file)return NULL;
+
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_manufacturer_file);
 	return btf_sys_file_read_buffer(btf_battery_info_manufacturer_file, buffer_size);
 }
@@ -100,6 +108,8 @@ btf_str btf_battery_info_serial(){
 btf_str btf_battery_info_technology(){
 	FILE* btf_battery_info_technology_file;
 	btf_battery_info_technology_file = btf_file_open(BTF_BATTERY_TECHNOLOGY, BTF_SYS_READ);
+	if(!btf_battery_info_technology_file)return NULL;
+
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_technology_file);
 	return btf_sys_file_read_buffer(btf_battery_info_technology_file, buffer_size);
 }
@@ -107,6 +117,8 @@ btf_str btf_battery_info_technology(){
 btf_str btf_battery_info_type(){
 	FILE* btf_battery_info_type_file;
 	btf_battery_info_type_file = btf_file_open(BTF_BATTERY_TYPE, BTF_SYS_READ);
+	if(!btf_battery_info_type_file)return NULL;
+
 	size_t buffer_size = btf_sys_file_length(btf_battery_info_type_file);
 	return btf_sys_file_read_buffer(btf_battery_info_type_file, buffer_size);
 }
@@ -124,13 +136,12 @@ size_t btf_sys_file_length(FILE* sys_file){
 btf_str btf_sys_file_read_buffer(FILE* sys_file, size_t buffer_size){
 	// check if file is open
 	if(!sys_file){
-		printf("error: unable to read system property\n");
 		return NULL;
 	}
 
 	rewind(sys_file);
 	btf_str buffer;
-	buffer = (btf_str)malloc(sizeof(btf_chr) * buffer_size);
+	buffer = (btf_str)btf_str_malloc(sizeof(btf_chr) * buffer_size);
 
 	if(!buffer)return NULL;
 	// read the buffer 	
@@ -141,12 +152,10 @@ btf_str btf_sys_file_read_buffer(FILE* sys_file, size_t buffer_size){
 	}
 
 	if(ferror(sys_file)){
-		printf("error: reading file interrupted!\n");
 		return NULL;
 	}
 
 	if(!feof(sys_file)){
-		printf("error: reading file not done!\n");
 		return NULL;
 	}
 
@@ -159,12 +168,29 @@ struct BtfBatteryInfo* btf_battery_info_build(){
 	battery_info = (struct BtfBatteryInfo*)malloc(sizeof(struct BtfBatteryInfo));
 	if(!battery_info)return NULL;
 
+	if(!btf_battery_info_type())
+		battery_info->btf_type = BTF_INFO_UNAVAILABLE;
 	battery_info->btf_type = btf_battery_info_type();
+
+	if(!btf_battery_info_capacity())
+		battery_info->btf_capacity = BTF_INFO_UNAVAILABLE;
 	battery_info->btf_capacity = btf_battery_info_capacity();
+	if(!btf_battery_info_capacity_level())
+		battery_info->btf_capacity_level = BTF_INFO_UNAVAILABLE;
 	battery_info->btf_capacity_level = btf_battery_info_capacity_level();
+
+	if(!btf_battery_info_technology())
+		battery_info->btf_technology = BTF_INFO_UNAVAILABLE;
 	battery_info->btf_technology = btf_battery_info_technology();
+
+	if(!btf_battery_info_manufacturer())
+		battery_info->btf_manufacturer = BTF_INFO_UNAVAILABLE;
 	battery_info->btf_manufacturer = btf_battery_info_manufacturer();
+
+	if(!btf_battery_info_serial())
+		battery_info->btf_serial_number = BTF_INFO_UNAVAILABLE;
 	battery_info->btf_serial_number = btf_battery_info_serial();
+
 	return battery_info;
 }
 
@@ -172,8 +198,15 @@ struct BtfACInfo* btf_ac_info_build(){
 	struct BtfACInfo* btf_ac_info;
 	btf_ac_info = (struct BtfACInfo*)malloc(sizeof(struct BtfACInfo));
 	if(!btf_ac_info)return NULL;
+	if(btf_ac_info_type())
+		btf_ac_info->type = BTF_INFO_UNAVAILABLE;
 	btf_ac_info->type = btf_ac_info_type();
+
+	if(!btf_ac_info_state())
+		btf_ac_info->state = false; 
 	btf_ac_info->state = btf_ac_info_state();
+
 	return btf_ac_info;
 }
 
+// =================================================
