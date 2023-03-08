@@ -24,6 +24,8 @@ void test_battery_info(void){
 	printf("battery available...\n");
 	struct BtfBatteryInfo* sys_battery_info;
 	sys_battery_info = btf_battery_info_build();
+	void* datum = &sys_battery_info;
+
 	if(!sys_battery_info){
 		printf("error: unable to read system property\n");
 		return;
@@ -35,7 +37,14 @@ void test_battery_info(void){
 	printf("battery_manufacturer: %s", sys_battery_info->btf_manufacturer);
 	printf("battery_technology: %s", sys_battery_info->btf_technology);
 	printf("finished battery check...");
+	printf("\nmemory address of info: %p\n", &sys_battery_info);
+	printf("datum address: %p\n", datum);
+
 	free(sys_battery_info);
+	// cheking memory address
+	if(datum != &sys_battery_info){
+		printf("address has been reset\n");
+	}
 }
 
 void test_ac_info(void){
